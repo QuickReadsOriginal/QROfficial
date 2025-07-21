@@ -96,6 +96,7 @@
     <div class="tab active" data-tab="home">🏠 Home</div>
     <div class="tab" data-tab="story-1">🌲 Forest</div>
     <div class="tab" data-tab="story-2">🤖 Robot</div>
+    <div class="tab" data-tab="code">🔑 Code Access</div>
   </div>
 
   <!-- Home Tab -->
@@ -128,6 +129,15 @@
       <span class="stars" data-value="4">&#9733;</span>
       <span class="stars" data-value="5">&#9733;</span>
     </div>
+
+    <!-- Code Access Tab -->
+<div id="code" class="tab-content">
+  <h2>Enter Access Code</h2>
+  <p>Type the secret code below to unlock the message:</p>
+  <input type="text" id="codeInput" placeholder="Enter code" style="padding: 6px; width: 200px;" />
+  <button onclick="checkCode()" style="padding: 6px 12px;">Submit</button>
+  <div id="codeMessage" style="margin-top: 15px; font-weight: bold;"></div>
+</div>
 
     <hr>
 
@@ -247,6 +257,21 @@
       li.style.padding = "6px 0";
       li.innerHTML = `<strong>${name}:</strong> ${text}`;
       list.appendChild(li);
+    }
+
+    function checkCode() {
+  const input = document.getElementById("codeInput").value.trim();
+  const output = document.getElementById("codeMessage");
+
+  const correctCode = "READ123";
+
+  if (input.toLowerCase() === correctCode.toLowerCase()) {
+    output.innerText = "✅ Correct Code! Welcome to the secret zone.";
+    output.style.color = "green";
+  } else {
+    output.innerText = "❌ Invalid Code. Try again.";
+    output.style.color = "red";
+  }
     }
   </script>
 
