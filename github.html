@@ -1,4 +1,4 @@
-*<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -94,6 +94,7 @@
 
   <div class="tabs">
     <div class="tab active" data-tab="home">🏠 Home</div>
+      <div class="tab active" data-tab="story hub">📖 Story Hub</div>
     <div class="tab" data-tab="story-1">🔪 The Mayor Case</div>
     <div class="tab" data-tab="story-2">COMING SOON!</div>
   </div>
@@ -107,7 +108,6 @@
       ✅ No sign-ups. <br>
       ✅ No distractions. <br>
       ✅ Just quick, memorable stories.
-      <br><br>
 
         You can visit our WhatsApp Channel at Quick Reads, and visit our YouTube Channel at @TheQuickReadsOfficial.
     </p>
@@ -116,6 +116,15 @@
     </p>
   </div>
 
+ <div id="story hub" class="tab-content active">
+    <h2>Story Hub</h2>
+    <p>
+      Welcome to <strong>The Story Hub</strong> — the place to navigate stories and view their how well they are.
+      <br><br>
+        <div id="rating-display" style="font-size: 1.2rem; color: gold; margin-top: 1rem;">
+  Loading rating...
+</div>
+    
   <!-- Story 1 -->
   <div id="story-1" class="tab-content">
     <h2>The Carter Case</h2>
@@ -399,13 +408,12 @@ It was a fairy tale ending for both the city of Canning, and the the two that fl
       </form>
       <ul class="comment-list" style="list-style: none; padding: 0; margin-top: 10px;"></ul>
     </div>
-  </div>
 
   <!-- Story 2 -->
   <div id="story-2" class="tab-content">
     <h2>TRAILERS AND MORE!</h2>
     <div class="story">
-     sorry...
+     The Carter Case- Official Trailer:https://www.youtube.com/watch?v=5rKO-BZ24n0
     </div>
 
     <div class="rating" data-story="story-2">
@@ -507,7 +515,19 @@ It was a fairy tale ending for both the city of Canning, and the the two that fl
       li.innerHTML = `<strong>${name}:</strong> ${text}`;
       list.appendChild(li);
     }
+
+    <script>
+  fetch('ratings.json')
+    .then(response => response.json())
+    .then(data => {
+      const { rating, votes } = data;
+      const stars = '★★★★★☆☆☆☆☆'.slice(5 - Math.round(rating), 10);
+      document.getElementById('rating-display').textContent = `${stars.slice(0, 5)} ${rating.toFixed(1)}/5 based on ${votes} votes`;
+    })
+    .catch(() => {
+      document.getElementById('rating-display').textContent = 'Rating unavailable';
+    });
   </script>
 
 </body>
-</html>*
+  </html>
