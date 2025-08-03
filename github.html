@@ -516,24 +516,23 @@ It was a fairy tale ending for both the city of Canning, and the the two that fl
       list.appendChild(li);
     }
 
-<script>
-  const tabs = document.querySelectorAll('.tab');
-  const contents = document.querySelectorAll('.tab-content');
+script>
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove active class from all tabs and contents
-      tabs.forEach(t => t.classList.remove('active'));
-      contents.forEach(c => c.classList.remove('active'));
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab');
 
-      // Add active class to selected tab
-      tab.classList.add('active');
+        // Remove active from all
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
 
-      // Show the matching content
-      const target = tab.getAttribute('data-tab');
-      document.getElementById(target)?.classList.add('active');
+        // Add active to selected
+        tab.classList.add('active');
+        document.getElementById(target)?.classList.add('active');
+      });
     });
-  });
   </script>
 
 </body>
