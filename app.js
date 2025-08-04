@@ -1,23 +1,17 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-// Your web app's Firebase configuration
+// 🔑 Paste your Firebase config here from Step 2
 const firebaseConfig = {
-  apiKey: "AIzaSyD8yyxnWRSr6BcTY2hCzLORw5lUxAB2Qoc",
-  authDomain: "quick-reads-ratings01.firebaseapp.com",
-  projectId: "quick-reads-ratings01",
-  storageBucket: "quick-reads-ratings01.firebasestorage.app",
-  messagingSenderId: "432321253003",
-  appId: "1:432321253003:web:7c794933ef71f4e5e7ce8e"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const ratingsRef = ref(db, 'ratings');
