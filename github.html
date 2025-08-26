@@ -1,129 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Reads</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f0f0f0;
-    }
-
-    header {
-      background: #2e7d32;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .tabs {
-      display: flex;
-      background: #ddd;
-      border-bottom: 2px solid #ccc;
-      overflow-x: auto;
-    }
-
-    .tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      background: #ccc;
-      border-right: 1px solid #bbb;
-      white-space: nowrap;
-    }
-
-    .tab.active {
-      background: white;
-      border-bottom: 2px solid white;
-      font-weight: bold;
-    }
-
-    .tab-content {
-      display: none;
-      padding: 20px;
-      background: white;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .story {
-      margin-top: 10px;
-      line-height: 1.6;
-    }
-
-    .rating {
-      margin-top: 15px;
-    }
-
-    .stars {
-      cursor: pointer;
-      font-size: 20px;
-      color: gray;
-    }
-
-    .stars.selected {
-      color: gold;
-    }
-
-    .comments-section {
-      margin-top: 20px;
-    }
-
-    .comment-form input {
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .tab {
-        padding: 10px;
-        font-size: 14px;
-      }
-    }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    header { background: #222; color: #fff; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
+    .tabs { display: flex; justify-content: center; background: #444; }
+    .tabs button { flex: 1; padding: 12px; border: none; background: #444; color: white; cursor: pointer; font-size: 16px; }
+    .tabs button:hover { background: #666; }
+    .tabs button.active { background: #222; }
+    .tab-content { display: none; padding: 20px; }
+    .tab-content.active { display: block; }
+    .story { margin-bottom: 15px; }
+    hr { margin: 20px 0; border: none; border-top: 1px solid #ddd; }
+    .rating { margin-top: 10px; }
+    .stars { cursor: pointer; font-size: 22px; color: #ccc; }
+    .stars.selected { color: gold; }
   </style>
 </head>
 <body>
+  <header>Quick Reads</header>
 
-  <header>
-    <h1>📖 Quick Reads</h1>
-    <p>For Anyone, Anytime, Anywhere.</p>
-  </header>
-
+  <!-- Tabs -->
   <div class="tabs">
-    <div class="tab active" data-tab="home">🏠 Home</div>
-    <div class="tab" data-tab="story-1">🔪 The Mayor Case</div>
-    <div class="tab" data-tab="story-2">COMING SOON!</div>
-  </div>
-
-  <!-- Home Tab -->
-  <div id="home" class="tab-content active">
-    <h2>About Quick Reads</h2>
-    <p>
-      Welcome to <strong>Quick Reads</strong> — your space for engaging, bite-sized stories that anyone can enjoy anytime, anywhere.
-      <br><br>
-      ✅ No sign-ups. <br>
-      ✅ No distractions. <br>
-      ✅ Just quick, memorable stories.
-
-      <br><br>You can visit our WhatsApp Channel at <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">Quick Reads</a>, and visit our YouTube Channel at <a href="https://youtube.com/@thequickreadsofficial?si=zMM8jKZ6okBHss06">@TheQuickReadsOfficial</a>
-
-      
-    </p>
-    <p>
-      Use the tabs above to explore different stories. Rate them, leave a comment, and enjoy reading
-    </p>
+    <button class="tab-button active" data-tab="story-1">STORY 1</button>
+    <button class="tab-button" data-tab="story-2">COMING SOON!</button>
   </div>
 
   <!-- Story 1 -->
-  <div id="story-1" class="tab-content">
+  <div id="story-1" class="tab-content active">
     <h2>The Carter Case</h2>
     <div class="story">
-      PART I: MURDER IN THE OUTBACKS<br><br>
-
-A scream. A thud. Police sirens going their usual rhythmic tone of 'Wee Woo'- loud enough to wake any sleeping,
+      <p>A scream. A thud. Police sirens going their usual rhythmic tone of 'Wee Woo'- loud enough to wake any sleeping,
  child, and the annoying chatter, not to mention that police sirens were equally annoying too, were the sound of reporters asking the very set of questions they always do. These were the sounds the residents near the house of Mrs. Evelyn Carter- Canning city's mayor, heard, around 6 in the morning on the dreadful date of June 4th. And if it wasn't obvious enough, Mrs. Carter had fallen two stories to her death and, thus, the conundrum.<br><br>
 
 Mr.Garcia, a 30-year-old neighbour, was the one to dial 112 and alert the authorities. Along with him, the concerned neighbours were Mr. and Mrs. Evans, the Winchester family, the Rory's and the elderly couples Mr and Mrs. Sinclair.<br> <br>
@@ -373,11 +283,11 @@ Gibbs became a great lawyer a few cities across, and an even better dad, being t
 
 Arthur stayed low for a few months before becoming a detective at a trusted agency and finding his foothold back in life.<br><br>
 
-It was a fairy tale ending for both the city of Canning, and the the two that fled the city. <br><br>
+It was a fairy tale ending for both the city of Canning, and the the two that fled the city. <br><br></p>
+    </div>
 
-<hr>
-</div>
-        <div class="rating" data-story="story-2">
+    <!-- Rating system -->
+    <div class="rating" data-story="story-1">
       <strong>Rate this story:</strong><br>
       <span class="stars" data-value="1">&#9733;</span>
       <span class="stars" data-value="2">&#9733;</span>
@@ -387,116 +297,70 @@ It was a fairy tale ending for both the city of Canning, and the the two that fl
     </div>
 
     <hr>
+  </div> <!-- ✅ Story 1 closes here -->
 
-
+  <!-- Giscus comments -->
   <script src="https://giscus.app/client.js"
         data-repo="QuickReadsOriginal/QROfficial"
-        data-repo-id="R_kgDOPLQxPA"
-        data-category="Comments"
-        data-category-id="DIC_kwDOPLQxPM4CuN6M"
+        data-repo-id="R_kgDONEXa0Q"
+        data-category="General"
+        data-category-id="DIC_kwDONEXa0c4Cl2bx"
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="preferred_color_scheme"
+        data-theme="light"
         data-lang="en"
         crossorigin="anonymous"
         async>
-</script>
+  </script>
 
   <!-- Story 2 -->
   <div id="story-2" class="tab-content">
     <h2>TRAILERS AND MORE!</h2>
     <div class="story">
-     <a href="https://www.youtube.com/watch?v=5rKO-BZ24n0">The Carter Case– Official Trailer</a>
-          </div>
-
-
+      <a href="https://www.youtube.com/watch?v=5rKO-BZ24n0" target="_blank">
+        The Carter Case – Official Trailer
+      </a>
+    </div>
 
     <hr>
 
+    <!-- Rating for Story 2 -->
+    <div class="rating" data-story="story-2">
+      <strong>Rate this story:</strong><br>
+      <span class="stars" data-value="1">&#9733;</span>
+      <span class="stars" data-value="2">&#9733;</span>
+      <span class="stars" data-value="3">&#9733;</span>
+      <span class="stars" data-value="4">&#9733;</span>
+      <span class="stars" data-value="5">&#9733;</span>
+    </div>
+  </div>
 
-  <!-- JavaScript -->
   <script>
-    // Tabs
-    const tabs = document.querySelectorAll('.tab');
-    const contents = document.querySelectorAll('.tab-content');
+    // Tab switching
+    document.querySelectorAll(".tab-button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.tab).classList.add("active");
+      });
+    });
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const target = tab.getAttribute('data-tab');
-        contents.forEach(c => {
-          c.classList.remove('active');
-          if (c.id === target) c.classList.add('active');
+    // Star rating
+    document.querySelectorAll(".rating").forEach(ratingDiv => {
+      const stars = ratingDiv.querySelectorAll(".stars");
+      stars.forEach(star => {
+        star.addEventListener("click", () => {
+          stars.forEach(s => s.classList.remove("selected"));
+          star.classList.add("selected");
+          let value = star.dataset.value;
+          console.log(`Rated ${ratingDiv.dataset.story}: ${value} stars`);
         });
       });
     });
-
-    // Ratings
-    document.querySelectorAll('.rating').forEach(ratingDiv => {
-      const storyId = ratingDiv.dataset.story;
-      const saved = localStorage.getItem("rating_" + storyId);
-      if (saved) highlightStars(ratingDiv, parseInt(saved));
-    });
-
-    document.querySelectorAll('.stars').forEach(star => {
-      star.addEventListener('click', () => {
-        const value = parseInt(star.dataset.value);
-        const ratingDiv = star.closest('.rating');
-        const storyId = ratingDiv.dataset.story;
-        localStorage.setItem("rating_" + storyId, value);
-        highlightStars(ratingDiv, value);
-      });
-    });
-
-    function highlightStars(ratingDiv, rating) {
-      const stars = ratingDiv.querySelectorAll('.stars');
-      stars.forEach(s => {
-        const val = parseInt(s.dataset.value);
-        s.classList.toggle('selected', val <= rating);
-      });
-    }
-
-    // Comments
-    document.querySelectorAll('.comments-section').forEach(section => {
-      const storyId = section.dataset.story;
-      const form = section.querySelector('.comment-form');
-      const nameInput = section.querySelector('.name-input');
-      const commentInput = section.querySelector('.comment-input');
-      const commentList = section.querySelector('.comment-list');
-
-      // Load saved comments
-      const savedComments = JSON.parse(localStorage.getItem("comments_" + storyId)) || [];
-      savedComments.forEach(c => addCommentToList(commentList, c.name, c.text));
-
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const name = nameInput.value.trim();
-        const comment = commentInput.value.trim();
-        if (name && comment) {
-          addCommentToList(commentList, name, comment);
-          savedComments.push({ name, text: comment });
-          localStorage.setItem("comments_" + storyId, JSON.stringify(savedComments));
-          nameInput.value = '';
-          commentInput.value = '';
-        }
-      });
-    });
-
-    function addCommentToList(list, name, text) {
-      const li = document.createElement('li');
-      li.style.borderBottom = "1px solid #ccc";
-      li.style.padding = "6px 0";
-      li.innerHTML = `<strong>${name}:</strong> ${text}`;
-      list.appendChild(li);
-    }
   </script>
-<script type="module" src="app.js"></script>
-
 </body>
 </html>
-
