@@ -83,7 +83,7 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       <h3>About</h3>
       <p class="meta">Quick Reads collects micro-fiction and short stories from emerging writers.</p>
       <div style="height:12px"></div>
-      <button id="comingSoonOpenAlt" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">Subscribe (Coming Soon)</button>
+      <button id="comingSoonOpenAlt" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">(Coming Soon)</button>
     </div>
 
     <div style="height:12px"></div>
@@ -100,18 +100,12 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
         <h2 id="comingTitle">Coming Soon — New Feature</h2>
         <button class="close-btn" id="modalClose" aria-label="Close">✕</button>
       </div>
-      <p>We're launching a new storytelling feature (series drops, author profiles). Sign up to be first to know.</p><div class="countdown" aria-hidden="false" id="countdown">
+      <p>Know when new storis release</p><div class="countdown" aria-hidden="false" id="countdown">
     <div class="block"><div id="days">00</div><div style="font-size:11px;margin-top:6px">Days</div></div>
     <div class="block"><div id="hours">00</div><div style="font-size:11px;margin-top:6px">Hours</div></div>
     <div class="block"><div id="mins">00</div><div style="font-size:11px;margin-top:6px">Minutes</div></div>
     <div class="block"><div id="secs">00</div><div style="font-size:11px;margin-top:6px">Seconds</div></div>
   </div>
-
-  <form id="subscribeForm" class="subscribe" onsubmit="return false;">
-    <label for="email" class="sr-only">Email address</label>
-    <input id="email" type="email" placeholder="Your email address" required aria-required="true" />
-    <button class="btn" id="subscribeBtn">Notify Me</button>
-  </form>
 
   <p id="subscribeMessage" style="margin-top:12px;font-size:14px;color:var(--muted)"></p>
 </div>
@@ -165,19 +159,6 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       openBtns.forEach(b => b.addEventListener('click', openModal));
       closeBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-
-      // Email subscription (local-only demo)
-      subscribeBtn.addEventListener('click', ()=>{
-        const email = emailInput.value.trim();
-        if(!email){ message.textContent = 'Please enter a valid email.'; emailInput.focus(); return; }
-        // simple email pattern check
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!pattern.test(email)){ message.textContent = 'Please enter a valid email address.'; emailInput.focus(); return; }
-        // simulate success (replace with fetch to your backend / Mailchimp endpoint)
-        message.style.color = 'green';
-        message.textContent = 'Thanks — you will be notified when we launch!';
-        subscribeBtn.disabled = true;
-      });
 
       // Countdown timer - set to a default future date (update to your real launch date)
       const launchDate = new Date('2025-09-10T09:00:00Z');
