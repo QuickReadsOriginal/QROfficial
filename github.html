@@ -21,24 +21,24 @@
     .story-list{display:grid;gap:12px}
     .story{display:flex;gap:12px;align-items:center}
     .story .meta{font-size:13px;color:var(--muted)}
-    .coming-soon-btn{background:#fff;color:#000;padding:10px 14px;border-radius:10px;border:1px solid #ddd;cursor:pointer}/* Modal styles */
-.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:60}
-.modal{width:min(720px,94vw);background:var(--card);border-radius:12px;padding:20px;box-shadow:0 18px 40px rgba(2,6,23,0.5)}
-.modal h2{margin:0 0 10px}
-.countdown{display:flex;gap:12px;margin:14px 0}
-.countdown .block{background:#111827;color:#fff;padding:10px 14px;border-radius:8px;text-align:center;min-width:64px}
-.subscribe{display:flex;gap:8px}
-input[type="email"]{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
-.btn{padding:10px 14px;border-radius:8px;border:0;background:#111827;color:#fff;cursor:pointer}
-.close-btn{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+    .coming-soon-btn{background:#fff;color:#000;padding:10px 14px;border-radius:10px;border:1px solid #ddd;cursor:pointer}
+    /* Modal styles */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:60}
+    .modal{width:min(720px,94vw);background:var(--card);border-radius:12px;padding:20px;box-shadow:0 18px 40px rgba(2,6,23,0.5)}
+    .modal h2{margin:0 0 10px}
+    .countdown{display:flex;gap:12px;margin:14px 0}
+    .countdown .block{background:#111827;color:#fff;padding:10px 14px;border-radius:8px;text-align:center;min-width:64px}
+    .subscribe{display:flex;gap:8px}
+    input[type="email"]{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
+    .btn{padding:10px 14px;border-radius:8px;border:0;background:#111827;color:#fff;cursor:pointer}
+    .close-btn{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
 
-footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);font-size:14px}
+    footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);font-size:14px}
 
-@media (max-width:880px){
-  .hero{grid-template-columns:1fr}
-  nav{gap:8px}
-}
-
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      nav{gap:8px}
+    }
   </style>
 </head>
 <body>
@@ -51,79 +51,97 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       <a href="#about">About</a>
       <a href="#contact">Follow</a>
     </nav>
-  </header>  <main>
-    <section class="hero">
+  </header>
+
+  <main>
+    <section class="hero" id="home">
       <div>
         <div class="card">
           <h1>Welcome to Quick Reads</h1>
           <p class="muted">For Anyone, Anytime, Anywhere.</p>
-        </div><div style="height:18px"></div>
-
-    <div class="card story-list" id="stories">
-      <h3>Latest Stories</h3>
-      <article class="story">
-        <div style="flex:1">
-          <strong>The Carter Case</strong>
-          <div class="meta">8 min read</div>
         </div>
-         <a href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html" class="btn">Read</a>
-      </article>
+        <div style="height:18px"></div>
 
-      <article class="story">
-        <div style="flex:1">
-          <strong>The Pendulum Clock</strong>
-          <div class="meta">6 min read</div>
+        <div class="card story-list" id="stories">
+          <h3>Latest Stories</h3>
+          
+          <article class="story">
+            <div style="flex:1">
+              <strong>The Carter Case</strong>
+              <div class="meta">8 min read</div>
+            </div>
+             <a href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html" class="btn">Read</a>
+          </article>
+
+          <article class="story">
+            <div style="flex:1">
+              <strong>The Pendulum Clock</strong>
+              <div class="meta">6 min read</div>
+            </div>
+            <a href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html" class="btn">Read</a>
+          </article>
+
+          <!-- ✅ New Story Tab -->
+          <article class="story">
+            <div style="flex:1">
+              <strong>The Cave Of The Dead</strong>
+              <div class="meta">5 min read</div>
+            </div>
+          <!--  <a href="https://quickreadsoriginal.github.io/QRSTORIES/Hiddenlake.html" class="btn">Read</a>-->
+          </article>
         </div>
-        <a href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html" class="btn">Read</a>
-      </article>
-    </div>
-  </div>
+      </div>
 
-  <aside>
-    <div class="card">
-      <h3>About</h3>
-      <p class="meta">Quick Reads, The place for bite-sized stories. </p>
-      <div style="height:12px"></div>
-      <button id="comingSoonOpenAlt" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">(Coming Soon)</button>
-    </div>
+      <aside>
+        <div class="card" id="about">
+          <h3>About</h3>
+          <p class="meta">Quick Reads, The place for bite-sized stories. </p>
+          <div style="height:12px"></div>
+          <button id="comingSoonOpenAlt" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">(Coming Soon)</button>
+        </div>
 
-    <div style="height:12px"></div>
-    <div class="card">
-      <h4>Follow</h4>
-      <p class="meta"> <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">Quick Reads</a>· <a href="https://youtube.com/@thequickreadsofficial?si=zMM8jKZ6okBHss06">@TheQuickReadsOfficial</a></p>
-    </div>
-  </aside>
-</section>
+        <div style="height:12px"></div>
+        <div class="card" id="contact">
+          <h4>Follow</h4>
+          <p class="meta"> 
+            <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">Quick Reads</a> · 
+            <a href="https://youtube.com/@thequickreadsofficial?si=zMM8jKZ6okBHss06">@TheQuickReadsOfficial</a>
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
 
-  </main>  <!-- Modal: Coming Soon -->  <div id="comingSoonModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="comingTitle">
+  <!-- Modal: Coming Soon -->
+  <div id="comingSoonModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="comingTitle">
     <div class="modal" role="document">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <h2 id="comingTitle">Coming Soon</h2>
         <button class="close-btn" id="modalClose" aria-label="Close">✕</button>
       </div>
-      <p>Know When New Stories Release</p><div class="countdown" aria-hidden="false" id="countdown">
-    <div class="block"><div id="days">00</div><div style="font-size:11px;margin-top:6px">Days</div></div>
-    <div class="block"><div id="hours">00</div><div style="font-size:11px;margin-top:6px">Hours</div></div>
-    <div class="block"><div id="mins">00</div><div style="font-size:11px;margin-top:6px">Minutes</div></div>
-    <div class="block"><div id="secs">00</div><div style="font-size:11px;margin-top:6px">Seconds</div></div>
+      <p>Know When New Stories Release</p>
+      <div class="countdown" aria-hidden="false" id="countdown">
+        <div class="block"><div id="days">00</div><div style="font-size:11px;margin-top:6px">Days</div></div>
+        <div class="block"><div id="hours">00</div><div style="font-size:11px;margin-top:6px">Hours</div></div>
+        <div class="block"><div id="mins">00</div><div style="font-size:11px;margin-top:6px">Minutes</div></div>
+        <div class="block"><div id="secs">00</div><div style="font-size:11px;margin-top:6px">Seconds</div></div>
+      </div>
+      <p id="subscribeMessage" style="margin-top:12px;font-size:14px;color:var(--muted)"></p>
+    </div>
   </div>
 
-  <p id="subscribeMessage" style="margin-top:12px;font-size:14px;color:var(--muted)"></p>
-</div>
-
-  </div>  <footer>
+  <footer>
     <div>Quick Reads</div>
-  </footer>  <script>
+  </footer>
+
+  <script>
     // Robust modal open/close with accessibility in mind
     (function(){
       const openBtns = document.querySelectorAll('#comingSoonOpen, #comingSoonOpenAlt');
       const modal = document.getElementById('comingSoonModal');
       const closeBtn = document.getElementById('modalClose');
-      const emailInput = document.getElementById('email');
-      const subscribeBtn = document.getElementById('subscribeBtn');
       const message = document.getElementById('subscribeMessage');
 
-      // Focusable elements inside modal for a simple focus trap
       function getFocusable() {
         return modal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
       }
@@ -131,10 +149,7 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       function openModal(){
         modal.style.display = 'flex';
         modal.setAttribute('aria-hidden','false');
-        // remember focused element
         modal._previousActive = document.activeElement;
-        // focus first input
-        setTimeout(()=> emailInput.focus(), 50);
         document.addEventListener('keydown', handleKeydown);
       }
 
@@ -148,7 +163,6 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       function handleKeydown(e){
         if(e.key === 'Escape') closeModal();
         if(e.key === 'Tab'){
-          // simple focus trap
           const focusables = Array.from(getFocusable());
           if(!focusables.length) return;
           const idx = focusables.indexOf(document.activeElement);
@@ -161,8 +175,7 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       closeBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
 
-      // Countdown timer - set to a default future date (update to your real launch date)
-      const launchDate = new Date('2025-09-10T12:00:00Z');
+      const launchDate = new Date('2025-10-03T12:00:00Z');
       const daysEl = document.getElementById('days');
       const hoursEl = document.getElementById('hours');
       const minsEl = document.getElementById('mins');
@@ -182,11 +195,12 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
       updateCountdown();
       setInterval(updateCountdown, 1000);
 
-      // Ensure keyboard users can open modal via Enter key on the button
-      openBtns.forEach(b => b.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); } }));
+      openBtns.forEach(b => b.addEventListener('keydown', (e)=>{ 
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); } 
+      }));
     })();
 
-    // Small enhancement: keep same look + ensure internal anchors don't reload page
+    // Smooth scroll for internal anchors
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         e.preventDefault();
@@ -195,5 +209,6 @@ footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);
         if(el) el.scrollIntoView({behavior:'smooth'});
       });
     });
-  </script></body>
+  </script>
+</body>
 </html>
