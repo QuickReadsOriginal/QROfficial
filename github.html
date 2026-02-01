@@ -1,284 +1,331 @@
 <!doctype html>
 <html lang="en">
-<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quick Reads</title>
   <meta name="description" content="Quick Reads" />
+
   <style>
-    :root{--bg:#f7f7f7;--card:#ffffff;--accent:#0b0b0b;--muted:#6b6b6b;--brand:#111827}
+    :root{
+      --bg:#f7f7f7;
+      --card:#ffffff;
+      --muted:#6b6b6b;
+      --brand:#111827;
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:var(--bg);color:var(--brand);-webkit-font-smoothing:antialiased}
-    header{background:#000;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-weight:700;letter-spacing:0.4px}
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{color:rgba(255,255,255,0.85);text-decoration:none;padding:8px;border-radius:6px;font-weight:600}
-    nav a:hover{background:rgba(255,255,255,0.06)}
-    main{max-width:1100px;margin:28px auto;padding:0 18px}
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
-    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
-    .story-list{display:grid;gap:12px}
-    .story{display:flex;gap:12px;align-items:center}
-    .story .meta{font-size:13px;color:var(--muted)}
-    .coming-soon-btn{background:#fff;color:#000;padding:10px 14px;border-radius:10px;border:1px solid #ddd;cursor:pointer}
-    /* Modal styles */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:60}
-    .modal{width:min(720px,94vw);background:var(--card);border-radius:12px;padding:20px;box-shadow:0 18px 40px rgba(2,6,23,0.5)}
-    .modal h2{margin:0 0 10px}
-    .countdown{display:flex;gap:12px;margin:14px 0}
-    .countdown .block{background:#111827;color:#fff;padding:10px 14px;border-radius:8px;text-align:center;min-width:64px}
-    .subscribe{display:flex;gap:8px}
-    input[type="email"]{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
-    .btn{padding:10px 14px;border-radius:8px;border:0;background:#111827;color:#fff;cursor:pointer}
-    .close-btn{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
 
-    footer{max-width:1100px;margin:36px auto 80px;padding:0 18px;color:var(--muted);font-size:14px}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--brand);
+    }
 
-    @media (max-width:880px){
+    header{
+      background:#000;
+      color:#fff;
+      padding:18px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .brand{font-weight:700}
+
+    nav{display:flex;gap:12px}
+
+    nav a, nav button{
+      color:#fff;
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:6px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    nav a:hover, nav button:hover{
+      background:rgba(255,255,255,0.1);
+    }
+
+    main{
+      max-width:1100px;
+      margin:28px auto;
+      padding:0 18px;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+    }
+
+    .card{
+      background:#fff;
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .story{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+    }
+
+    .meta{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .btn{
+      background:#111827;
+      color:#fff;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      text-decoration:none;
+    }
+
+    .btn.secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:50;
+    }
+
+    .modal{
+      background:#fff;
+      padding:20px;
+      border-radius:12px;
+      width:min(720px,94vw);
+    }
+
+    .countdown{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .countdown .block{
+      background:#111827;
+      color:#fff;
+      padding:10px;
+      border-radius:8px;
+      min-width:70px;
+      text-align:center;
+    }
+
+    footer{
+      text-align:center;
+      margin:40px 0;
+      color:var(--muted);
+    }
+
+    @media (max-width:900px){
       .hero{grid-template-columns:1fr}
-      nav{gap:8px}
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="brand">Quick Reads</div>
-    <nav aria-label="Primary">
-      <a href="#home">Home</a>
-      <a href="#stories">Stories</a>
-      <button id="comingSoonOpen" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">Coming Soon</button>
-      <a href="#about">About</a>
-      <a href="#contact">Follow</a>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div>
-        <div class="card">
-          <h1>Welcome to Quick Reads</h1>
-          <p class="muted">For Anyone, Anytime, Anywhere.</p>
-        </div>
-        <div style="height:18px"></div>
+<header>
+  <div class="brand">Quick Reads</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#stories">Stories</a>
+    <button id="comingSoonOpen">Coming Soon</button>
+    <a href="#about">About</a>
+    <a href="#contact">Follow</a>
+  </nav>
+</header>
 
-        <div class="card story-list" id="stories">
-          <h3>Story Phases</h3>
+<main>
+<section class="hero" id="home">
 
-          <!-- Phase Menu -->
-          <div style="display:flex;gap:8px;margin-bottom:12px;">
-            <button class="btn" id="phase1Btn">Phase 1</button>
-            <button class="btn" id="phase2Btn" style="background:#e5e7eb;color:#111827;">Phase 2</button>
+  <!-- LEFT -->
+  <div>
+    <div class="card">
+      <h1>Welcome to Quick Reads</h1>
+      <p class="meta">For Anyone, Anytime, Anywhere.</p>
+    </div>
+
+    <br>
+
+    <div class="card" id="stories">
+      <h3>Story Phases</h3>
+
+      <!-- Phase Buttons -->
+      <div style="margin-bottom:14px;">
+        <button class="btn" id="phase1Btn">Phase 1</button>
+        <button class="btn secondary" id="phase2Btn">Phase 2</button>
+      </div>
+
+      <!-- PHASE 1 -->
+      <div id="phase1Stories">
+        <div class="story">
+          <div>
+            <strong>1.1 The Carter Case</strong>
+            <div class="meta">Crime / Thriller</div>
           </div>
-
-          <!-- Phase 1 Stories -->
-          <div id="phase1Stories">
-            <article class="story">
-              <div style="flex:1">
-                <strong>1.1  The Carter Case</strong>
-                <div class="meta">Crime/Thirller</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html" class="btn">Read</a>
-            </article><br>
-
-            <article class="story">
-              <div style="flex:1">
-                <strong>1.2  The Pendulum Clock</strong>
-                <div class="meta">Coming-of-Age </div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html" class="btn">Read</a>
-            </article><br>
-
-            <article class="story">
-              <div style="flex:1">
-                <strong>1.3  The Gun</strong>
-                <div class="meta">Crime/Thriller</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Thegun.html" class="btn">Read</a>
-            </article><br>
-          
-
- <article class="story">
-              <div style="flex:1">
-                <strong>1.4  The Rookie Case</strong>
-                <div class="meta">Crime/Thirller</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Therookiemission.html" class="btn">Read</a>
-            </article><br>
-
-              <article class="story">
-              <div style="flex:1">
-                <strong>1.5  The Hunt</strong>
-                <div class="meta">Phase Finale</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Thehunt.html" class="btn">Read</a>
-            </article>
-          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html">Read</a>
         </div>
 
-
-          <!-- Phase 2 Stories -->
-          <div id="phase2Stories" style="display:none;">
-            <article class="story">
-              <div style="flex:1">
-                <strong>2.0  Halloween Special – The Cave of the Dead</strong>
-                <div class="meta">Mystery/Thriller</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/Caveofthedead.html" class="btn">Read</a>
-            </article>
+        <div class="story">
+          <div>
+            <strong>1.2 The Pendulum Clock</strong>
+            <div class="meta">Coming-of-Age</div>
           </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html">Read</a>
+        </div>
 
-            <article class="story">
-              <div style="flex:1">
-                <strong>2.1  The Curse</strong>
-                <div class="meta">Horror/Mystery</div>
-              </div>
-              <a href="https://quickreadsoriginal.github.io/QRSTORIES/TheCurse.html" class="btn">Read</a>
-            </article>
+        <div class="story">
+          <div>
+            <strong>1.3 The Gun</strong>
+            <div class="meta">Crime / Thriller</div>
+          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Thegun.html">Read</a>
+        </div>
+
+        <div class="story">
+          <div>
+            <strong>1.4 The Rookie Case</strong>
+            <div class="meta">Crime / Thriller</div>
+          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Therookiemission.html">Read</a>
+        </div>
+
+        <div class="story">
+          <div>
+            <strong>1.5 The Hunt</strong>
+            <div class="meta">Phase Finale</div>
+          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Thehunt.html">Read</a>
         </div>
       </div>
 
-      <aside>
-        <div class="card" id="about">
-          <h3>About</h3>
-          <p class="meta">Quick Reads, The place for bite-sized stories. </p>
-          <div style="height:12px"></div>
-          <button id="comingSoonOpenAlt" class="coming-soon-btn" aria-haspopup="dialog" aria-controls="comingSoonModal">(Coming Soon)</button>
+      <!-- PHASE 2 -->
+      <div id="phase2Stories" style="display:none;">
+        <div class="story">
+          <div>
+            <strong>2.0 Halloween Special – The Cave of the Dead</strong>
+            <div class="meta">Mystery / Thriller</div>
+          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Caveofthedead.html">Read</a>
         </div>
 
-        <div style="height:12px"></div>
-        <div class="card" id="contact">
-          <h4>Follow</h4>
-          <p class="meta"> 
-            <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">Quick Reads</a> · 
-            <a href="https://youtube.com/@thequickreadsofficial?si=zMM8jKZ6okBHss06">@TheQuickReadsOfficial</a>
-          </p>
+        <div class="story">
+          <div>
+            <strong>2.1 The Curse</strong>
+            <div class="meta">Horror / Mystery</div>
+          </div>
+          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/TheCurse.html">Read</a>
         </div>
-      </aside>
-    </section>
-  </main>
+      </div>
 
-  <!-- Modal: Coming Soon -->
-  <div id="comingSoonModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="comingTitle">
-    <div class="modal" role="document">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h2 id="comingTitle">Coming Soon</h2>
-        <button class="close-btn" id="modalClose" aria-label="Close">✕</button>
-      </div>
-      <p>Know When New Stories Release</p>
-      <div class="countdown" aria-hidden="false" id="countdown">
-        <div class="block"><div id="days">00</div><div style="font-size:11px;margin-top:6px">Days</div></div>
-        <div class="block"><div id="hours">00</div><div style="font-size:11px;margin-top:6px">Hours</div></div>
-        <div class="block"><div id="mins">00</div><div style="font-size:11px;margin-top:6px">Minutes</div></div>
-        <div class="block"><div id="secs">00</div><div style="font-size:11px;margin-top:6px">Seconds</div></div>
-      </div>
-      <p id="subscribeMessage" style="margin-top:12px;font-size:14px;color:var(--muted)"></p>
     </div>
   </div>
 
-  <footer>
-    <div>Quick Reads</div>
-  </footer>
+  <!-- RIGHT -->
+  <aside>
+    <div class="card" id="about">
+      <h3>About</h3>
+      <p class="meta">Quick Reads — the place for bite-sized stories.</p>
+      <button id="comingSoonOpenAlt" class="btn secondary">(Coming Soon)</button>
+    </div>
 
-  <script>
-    // Robust modal open/close with accessibility in mind
-    (function(){
-      const openBtns = document.querySelectorAll('#comingSoonOpen, #comingSoonOpenAlt');
-      const modal = document.getElementById('comingSoonModal');
-      const closeBtn = document.getElementById('modalClose');
-      const message = document.getElementById('subscribeMessage');
+    <br>
 
-      function getFocusable() {
-        return modal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
-      }
+    <div class="card" id="contact">
+      <h4>Follow</h4>
+      <p class="meta">
+        <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">WhatsApp</a> ·
+        <a href="https://youtube.com/@thequickreadsofficial">YouTube</a>
+      </p>
+    </div>
+  </aside>
 
-      function openModal(){
-        modal.style.display = 'flex';
-        modal.setAttribute('aria-hidden','false');
-        modal._previousActive = document.activeElement;
-        document.addEventListener('keydown', handleKeydown);
-      }
+</section>
+</main>
 
-      function closeModal(){
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden','true');
-        if(modal._previousActive) modal._previousActive.focus();
-        document.removeEventListener('keydown', handleKeydown);
-      }
+<!-- MODAL -->
+<div class="modal-backdrop" id="comingSoonModal">
+  <div class="modal">
+    <h2>Coming Soon</h2>
+    <p>New stories are on the way 👀</p>
 
-      function handleKeydown(e){
-        if(e.key === 'Escape') closeModal();
-        if(e.key === 'Tab'){
-          const focusables = Array.from(getFocusable());
-          if(!focusables.length) return;
-          const idx = focusables.indexOf(document.activeElement);
-          if(e.shiftKey && idx === 0){ focusables[focusables.length-1].focus(); e.preventDefault(); }
-          if(!e.shiftKey && idx === focusables.length-1){ focusables[0].focus(); e.preventDefault(); }
-        }
-      }
+    <div class="countdown">
+      <div class="block"><div id="days">00</div>Days</div>
+      <div class="block"><div id="hours">00</div>Hours</div>
+      <div class="block"><div id="mins">00</div>Minutes</div>
+      <div class="block"><div id="secs">00</div>Seconds</div>
+    </div>
 
-      openBtns.forEach(b => b.addEventListener('click', openModal));
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    <br>
+    <button class="btn secondary" id="modalClose">Close</button>
+  </div>
+</div>
 
-      const launchDate = new Date('2026-01-31T12:00:00Z');
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minsEl = document.getElementById('mins');
-      const secsEl = document.getElementById('secs');
+<footer>Quick Reads</footer>
 
-      function updateCountdown(){
-        const now = new Date();
-        let diff = Math.max(0, Math.floor((launchDate - now) / 1000));
-        const days = Math.floor(diff / 86400); diff %= 86400;
-        const hours = Math.floor(diff / 3600); diff %= 3600;
-        const mins = Math.floor(diff / 60); const secs = diff % 60;
-        daysEl.textContent = String(days).padStart(2,'0');
-        hoursEl.textContent = String(hours).padStart(2,'0');
-        minsEl.textContent = String(mins).padStart(2,'0');
-        secsEl.textContent = String(secs).padStart(2,'0');
-      }
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
+<script>
+  const phase1Btn = document.getElementById('phase1Btn');
+  const phase2Btn = document.getElementById('phase2Btn');
+  const phase1Stories = document.getElementById('phase1Stories');
+  const phase2Stories = document.getElementById('phase2Stories');
 
-      openBtns.forEach(b => b.addEventListener('keydown', (e)=>{ 
-        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); } 
-      }));
-    })();
+  phase1Btn.onclick = () => {
+    phase1Stories.style.display = 'block';
+    phase2Stories.style.display = 'none';
+    phase1Btn.classList.remove('secondary');
+    phase2Btn.classList.add('secondary');
+  };
 
-    // Smooth scroll for internal anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        const target = a.getAttribute('href').slice(1);
-        const el = document.getElementById(target);
-        if(el) el.scrollIntoView({behavior:'smooth'});
-      });
-    });
+  phase2Btn.onclick = () => {
+    phase1Stories.style.display = 'none';
+    phase2Stories.style.display = 'block';
+    phase2Btn.classList.remove('secondary');
+    phase1Btn.classList.add('secondary');
+  };
 
-    // Phase switcher
-    const phase1Btn = document.getElementById('phase1Btn');
-    const phase2Btn = document.getElementById('phase2Btn');
-    const phase1Stories = document.getElementById('phase1Stories');
-    const phase2Stories = document.getElementById('phase2Stories');
+  const modal = document.getElementById('comingSoonModal');
+  document.getElementById('comingSoonOpen').onclick = () => modal.style.display='flex';
+  document.getElementById('comingSoonOpenAlt').onclick = () => modal.style.display='flex';
+  document.getElementById('modalClose').onclick = () => modal.style.display='none';
 
-    phase1Btn.addEventListener('click', ()=>{
-      phase1Stories.style.display='block';
-      phase2Stories.style.display='none';
-      phase1Btn.style.background='#111827';
-      phase1Btn.style.color='#fff';
-      phase2Btn.style.background='#e5e7eb';
-      phase2Btn.style.color='#111827';
-    });
+  const launchDate = new Date('2026-01-31T12:00:00Z');
 
-    phase2Btn.addEventListener('click', ()=>{
-      phase1Stories.style.display='none';
-      phase2Stories.style.display='block';
-      phase2Btn.style.background='#111827';
-      phase2Btn.style.color='#fff';
-      phase1Btn.style.background='#e5e7eb';
-      phase1Btn.style.color='#111827';
-    });
-  </script>
+  function updateCountdown(){
+    const now = new Date();
+    let diff = Math.max(0, Math.floor((launchDate - now)/1000));
+    const d = Math.floor(diff/86400); diff%=86400;
+    const h = Math.floor(diff/3600); diff%=3600;
+    const m = Math.floor(diff/60); const s = diff%60;
+
+    days.textContent = String(d).padStart(2,'0');
+    hours.textContent = String(h).padStart(2,'0');
+    mins.textContent = String(m).padStart(2,'0');
+    secs.textContent = String(s).padStart(2,'0');
+  }
+
+  setInterval(updateCountdown,1000);
+  updateCountdown();
+</script>
+
 </body>
-</html>
+  </html>
