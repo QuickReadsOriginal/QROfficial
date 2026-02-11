@@ -1,331 +1,306 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quick Reads</title>
-  <meta name="description" content="Quick Reads" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Reads | Interactive</title>
 
-  <style>
-    :root{
-      --bg:#f7f7f7;
-      --card:#ffffff;
-      --muted:#6b6b6b;
-      --brand:#111827;
-    }
+<style>
+:root {
+  --primary: #6366f1;
+  --bg-gradient: linear-gradient(-45deg, #f5f7fa, #c3cfe2, #e2ebf0, #cfd9df);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --text: #1f2937;
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
 
-    *{box-sizing:border-box}
+body.dark {
+  --bg-gradient: linear-gradient(-45deg, #0f172a, #1e1b4b, #2e1065, #020617);
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --text: #f8fafc;
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
 
-    body{
-      margin:0;
-      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-      background:var(--bg);
-      color:var(--brand);
-    }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    header{
-      background:#000;
-      color:#fff;
-      padding:18px 24px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: var(--text);
+  transition: all 0.4s ease;
+  padding-bottom: 110px;
+}
 
-    .brand{font-weight:700}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    nav{display:flex;gap:12px}
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 
-    nav a, nav button{
-      color:#fff;
-      text-decoration:none;
-      padding:8px 10px;
-      border-radius:6px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
-    }
+header { padding: 20px; max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+header h1 { margin: 0; font-size: 24px; font-weight: 900; }
 
-    nav a:hover, nav button:hover{
-      background:rgba(255,255,255,0.1);
-    }
+.theme-btn { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; cursor: pointer; transition: 0.3s; }
 
-    main{
-      max-width:1100px;
-      margin:28px auto;
-      padding:0 18px;
-    }
+main { max-width: 600px; margin: 0 auto; padding: 0 16px; }
 
-    .hero{
-      display:grid;
-      grid-template-columns:1fr 360px;
-      gap:24px;
-    }
+.welcome-card { padding: 20px; border-radius: 24px; margin-bottom: 20px; animation: zoomIn 0.6s ease; }
 
-    .card{
-      background:#fff;
-      padding:18px;
-      border-radius:12px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06);
-    }
+.phase-pill { display: flex; background: rgba(0,0,0,0.05); padding: 5px; border-radius: 16px; margin-bottom: 20px; gap: 5px; }
+.phase-pill button { flex: 1; border: none; background: none; padding: 12px; border-radius: 12px; color: var(--text); font-weight: 700; cursor: pointer; transition: 0.3s; }
+.phase-pill button.active { background: var(--primary); color: white; }
 
-    .story{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:12px;
-    }
+/* STORY CARDS & HOVER ANIMATIONS */
+.story-card {
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth spring effect */
+  cursor: pointer;
+}
 
-    .meta{
-      font-size:13px;
-      color:var(--muted);
-    }
+/* Card shifts right on hover */
+.story-card:hover {
+  transform: translateX(10px);
+  background: rgba(255, 255, 255, 0.9);
+}
 
-    .btn{
-      background:#111827;
-      color:#fff;
-      border:none;
-      padding:8px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      text-decoration:none;
-    }
+body.dark .story-card:hover { background: rgba(255, 255, 255, 0.15); }
 
-    .btn.secondary{
-      background:#e5e7eb;
-      color:#111827;
-    }
+.story-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: 800;
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-right: 15px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-    /* Modal */
-    .modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.6);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:50;
-    }
+/* Icon "Pops" when card is hovered */
+.story-card:hover .story-icon {
+  transform: scale(1.2) rotate(-10deg);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
 
-    .modal{
-      background:#fff;
-      padding:20px;
-      border-radius:12px;
-      width:min(720px,94vw);
-    }
+.story-details { display: flex; flex-direction: column; }
+.story-details b { font-size: 16px; line-height: 1.2; }
+.story-details small { opacity: 0.6; font-size: 12px; }
 
-    .countdown{
-      display:flex;
-      gap:10px;
-      margin-top:14px;
-    }
+.spacer { flex-grow: 1; }
 
-    .countdown .block{
-      background:#111827;
-      color:#fff;
-      padding:10px;
-      border-radius:8px;
-      min-width:70px;
-      text-align:center;
-    }
+.read-link {
+  background: #34a853;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 12px;
+  transition: 0.3s;
+}
+.read-link:hover { transform: scale(1.1); background: #2d8e47; }
 
-    footer{
-      text-align:center;
-      margin:40px 0;
-      color:var(--muted);
-    }
+/* SECTIONS */
+.tab-section { display: none; }
+.tab-section.active { display: block; }
 
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-    }
-  </style>
+.stagger-in > div {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+.stagger-in > div:nth-child(1) { animation-delay: 0.1s; }
+.stagger-in > div:nth-child(2) { animation-delay: 0.2s; }
+.stagger-in > div:nth-child(3) { animation-delay: 0.3s; }
+.stagger-in > div:nth-child(4) { animation-delay: 0.4s; }
+.stagger-in > div:nth-child(5) { animation-delay: 0.5s; }
+
+/* BOTTOM NAV */
+nav.bottom-nav {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  height: 70px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+.nav-btn { background: none; border: none; color: var(--text); opacity: 0.5; font-weight: 700; font-size: 11px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.3s; }
+.nav-btn.active { opacity: 1; color: var(--primary); transform: translateY(-5px); }
+
+/* KEYFRAMES */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+.release-box {
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  color: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="brand">Quick Reads</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#stories">Stories</a>
-    <button id="comingSoonOpen">Coming Soon</button>
-    <a href="#about">About</a>
-    <a href="#contact">Follow</a>
-  </nav>
+  <h1><span style="color:#4285f4">Q</span><span style="color:#FF0000">u</span><span style="color:#FFFF00">i</span><span style="color:#00FF00">c</span><span style="color:#FFA500">k</span> Reads</h1>
+  <div class="glass theme-btn" onclick="toggleDark()" id="themeIcon">🌙</div>
 </header>
 
 <main>
-<section class="hero" id="home">
-
-  <!-- LEFT -->
-  <div>
-    <div class="card">
-      <h1>Welcome to Quick Reads</h1>
-      <p class="meta">For Anyone, Anytime, Anywhere.</p>
-    </div>
-
-    <br>
-
-    <div class="card" id="stories">
-      <h3>Story Phases</h3>
-
-      <!-- Phase Buttons -->
-      <div style="margin-bottom:14px;">
-        <button class="btn" id="phase1Btn">Phase 1</button>
-        <button class="btn secondary" id="phase2Btn">Phase 2</button>
-      </div>
-
-      <!-- PHASE 1 -->
-      <div id="phase1Stories">
-        <div class="story">
-          <div>
-            <strong>1.1 The Carter Case</strong>
-            <div class="meta">Crime / Thriller</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html">Read</a>
-        </div>
-
-        <div class="story">
-          <div>
-            <strong>1.2 The Pendulum Clock</strong>
-            <div class="meta">Coming-of-Age</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html">Read</a>
-        </div>
-
-        <div class="story">
-          <div>
-            <strong>1.3 The Gun</strong>
-            <div class="meta">Crime / Thriller</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Thegun.html">Read</a>
-        </div>
-
-        <div class="story">
-          <div>
-            <strong>1.4 The Rookie Case</strong>
-            <div class="meta">Crime / Thriller</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Therookiemission.html">Read</a>
-        </div>
-
-        <div class="story">
-          <div>
-            <strong>1.5 The Hunt</strong>
-            <div class="meta">Phase Finale</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Thehunt.html">Read</a>
-        </div>
-      </div>
-
-      <!-- PHASE 2 -->
-      <div id="phase2Stories" style="display:none;">
-        <div class="story">
-          <div>
-            <strong>2.0 Halloween Special – The Cave of the Dead</strong>
-            <div class="meta">Mystery / Thriller</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/Caveofthedead.html">Read</a>
-        </div>
-
-        <div class="story">
-          <div>
-            <strong>2.1 The Curse</strong>
-            <div class="meta">Horror / Mystery</div>
-          </div>
-          <a class="btn" href="https://quickreadsoriginal.github.io/QRSTORIES/TheCurse.html">Read</a>
-        </div>
-      </div>
-
-    </div>
+  <div class="glass welcome-card">
+    <h2 style="margin:0">Welcome back 👋</h2>
+    <p style="margin:5px 0 0; opacity:0.6">For Anyone. Anytime. Anywhere.</p>
   </div>
 
-  <!-- RIGHT -->
-  <aside>
-    <div class="card" id="about">
-      <h3>About</h3>
-      <p class="meta">Quick Reads — the place for bite-sized stories.</p>
-      <button id="comingSoonOpenAlt" class="btn secondary">(Coming Soon)</button>
+  <section id="stories" class="tab-section active">
+    <div class="phase-pill">
+      <button class="active" onclick="showPhase('phase1', this)">Phase 1</button>
+      <button onclick="showPhase('phase2', this)">Phase 2</button>
     </div>
 
-    <br>
-
-    <div class="card" id="contact">
-      <h4>Follow</h4>
-      <p class="meta">
-        <a href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">WhatsApp</a> ·
-        <a href="https://youtube.com/@thequickreadsofficial">YouTube</a>
-      </p>
+    <div id="p1-container" class="stagger-in">
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#4285f4">C</div>
+        <div class="story-details"><b>The Carter Case</b><small>Crime • Thriller</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Cartercase.html">READ</a>
+      </div>
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#ea4335">P</div>
+        <div class="story-details"><b>The Pendulum Clock</b><small>Fantasy</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Pendulumclock.html">READ</a>
+      </div>
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#fbbc05">G</div>
+        <div class="story-details"><b>The Gun</b><small>Crime • Thriller</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Thegun.html">READ</a>
+      </div>
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#34a853">R</div>
+        <div class="story-details"><b>The Rookie Mission</b><small>Crime • Thriller</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Therookiemission.html">READ</a>
+      </div>
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#000000">H</div>
+        <div class="story-details"><b>The Hunt</b><small>Crime • Thriller</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Thehunt.html">READ</a>
+      </div>
     </div>
-  </aside>
 
-</section>
+    <div id="p2-container" class="stagger-in" style="display:none">
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#4285f4">C</div>
+        <div class="story-details"><b>The Cave Of The Dead</b><small>Horror • Mystery</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/Caveofthedead.html">READ</a>
+      </div>
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#ea4335">C</div>
+        <div class="story-details"><b>The Curse</b><small>Thriller • Mystery</small></div>
+        <div class="spacer"></div>
+        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/TheCurse.html">READ</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="new" class="tab-section">
+    <div class="glass welcome-card">
+      <h3 style="margin-top:0">🔥 New Releases</h3>
+      <div class="release-box">
+        2.2: The Journal<br>20 / 03 / 2026<br><br>
+        2.3: The Phase Finale<br>16 / 04 / 2026
+      </div>
+    </div>
+    <div class="glass welcome-card" style="text-align:center">
+      <h3>⏳ Countdown</h3>
+      <div id="timer" style="font-size:28px; font-weight:900; color:#ea4335">00:00:00</div>
+    </div>
+  </section>
+
+  <section id="follow" class="tab-section">
+    <div class="glass welcome-card" style="text-align:center">
+      <h3>💬 Community</h3>
+      <p>Get updates, polls, and posters directly on WhatsApp.</p><br>
+      <a class="read-link" style="padding:15px 30px; display:inline-block;" href="https://whatsapp.com/channel/0029VbBPFwm002T17V6OaG2s">Join Channel</a>
+    </div>
+  </section>
 </main>
 
-<!-- MODAL -->
-<div class="modal-backdrop" id="comingSoonModal">
-  <div class="modal">
-    <h2>Coming Soon</h2>
-    <p>New stories are on the way 👀</p>
-
-    <div class="countdown">
-      <div class="block"><div id="days">00</div>Days</div>
-      <div class="block"><div id="hours">00</div>Hours</div>
-      <div class="block"><div id="mins">00</div>Minutes</div>
-      <div class="block"><div id="secs">00</div>Seconds</div>
-    </div>
-
-    <br>
-    <button class="btn secondary" id="modalClose">Close</button>
-  </div>
-</div>
-
-<footer>Quick Reads</footer>
+<nav class="glass bottom-nav">
+  <button class="nav-btn active" onclick="tab('stories', this)"><span>📚</span>Stories</button>
+  <button class="nav-btn" onclick="tab('new', this)"><span>🔥</span>New</button>
+  <button class="nav-btn" onclick="tab('follow', this)"><span>💬</span>Follow</button>
+</nav>
 
 <script>
-  const phase1Btn = document.getElementById('phase1Btn');
-  const phase2Btn = document.getElementById('phase2Btn');
-  const phase1Stories = document.getElementById('phase1Stories');
-  const phase2Stories = document.getElementById('phase2Stories');
+function tab(id, btn) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
 
-  phase1Btn.onclick = () => {
-    phase1Stories.style.display = 'block';
-    phase2Stories.style.display = 'none';
-    phase1Btn.classList.remove('secondary');
-    phase2Btn.classList.add('secondary');
-  };
+function showPhase(phase, btn) {
+  document.getElementById('p1-container').style.display = (phase === 'phase1') ? 'block' : 'none';
+  document.getElementById('p2-container').style.display = (phase === 'phase2') ? 'block' : 'none';
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-  phase2Btn.onclick = () => {
-    phase1Stories.style.display = 'none';
-    phase2Stories.style.display = 'block';
-    phase2Btn.classList.remove('secondary');
-    phase1Btn.classList.add('secondary');
-  };
+function toggleDark() {
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('themeIcon').innerText = isDark ? '☀️' : '🌙';
+  localStorage.setItem('qr-dark', isDark);
+}
+if(localStorage.getItem('qr-dark') === 'true') {
+  document.body.classList.add('dark');
+  document.getElementById('themeIcon').innerText = '☀️';
+}
 
-  const modal = document.getElementById('comingSoonModal');
-  document.getElementById('comingSoonOpen').onclick = () => modal.style.display='flex';
-  document.getElementById('comingSoonOpenAlt').onclick = () => modal.style.display='flex';
-  document.getElementById('modalClose').onclick = () => modal.style.display='none';
-
-  const launchDate = new Date('2026-01-31T12:00:00Z');
-
-  function updateCountdown(){
-    const now = new Date();
-    let diff = Math.max(0, Math.floor((launchDate - now)/1000));
-    const d = Math.floor(diff/86400); diff%=86400;
-    const h = Math.floor(diff/3600); diff%=3600;
-    const m = Math.floor(diff/60); const s = diff%60;
-
-    days.textContent = String(d).padStart(2,'0');
-    hours.textContent = String(h).padStart(2,'0');
-    mins.textContent = String(m).padStart(2,'0');
-    secs.textContent = String(s).padStart(2,'0');
-  }
-
-  setInterval(updateCountdown,1000);
-  updateCountdown();
+const targetDate = new Date("2026-03-20T12:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+  if(diff < 0) { document.getElementById('timer').innerText = "🚀 Out Now!"; return; }
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+  document.getElementById('timer').innerText = `${d}d ${h}h ${m}m ${s}s`;
+}, 1000);
 </script>
 
 </body>
-  </html>
+</html>
