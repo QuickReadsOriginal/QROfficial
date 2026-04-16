@@ -12,6 +12,26 @@
 <title>Quick Reads</title>
 
 <style>
+  .logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+header {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 :root {
   --primary: #6366f1;
   --bg-gradient: linear-gradient(-45deg, #f5f7fa, #c3cfe2, #e2ebf0, #cfd9df);
@@ -176,7 +196,10 @@ nav.bottom-nav {
 <body>
 
 <header>
-  <h1><span style="color:#4285f4">Q</span><span style="color:#FF0000">u</span><span style="color:#FFFF00">i</span><span style="color:#00FF00">c</span><span style="color:#FFA500">k</span> Reads</h1>
+  <header>
+  <img src="weblogo.png" alt="Quick Reads Logo" class="logo">
+  <div class="glass theme-btn" onclick="toggleDark()" id="themeIcon">🌙</div>
+</header>
   <div class="glass theme-btn" onclick="toggleDark()" id="themeIcon">🌙</div>
 </header>
 
