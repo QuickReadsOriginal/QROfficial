@@ -41,7 +41,7 @@ body {
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
   color: var(--text);
-  transition: all 0.4s ease;
+  transition: 0.4s ease;
   padding-bottom: 110px;
 }
 
@@ -54,9 +54,8 @@ body {
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
 /* HEADER */
@@ -72,7 +71,6 @@ header {
 .logo {
   height: 70px;
   width: auto;
-  object-fit: contain;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -81,7 +79,6 @@ header {
   transform: scale(1.05);
 }
 
-/* THEME BUTTON */
 .theme-btn {
   width: 40px;
   height: 40px;
@@ -111,17 +108,15 @@ main {
 /* PHASE BUTTONS */
 .phase-pill {
   display: flex;
+  gap: 5px;
   background: rgba(0,0,0,0.05);
   padding: 5px;
   border-radius: 16px;
-  margin-bottom: 20px;
-  gap: 5px;
 }
 
 .phase-pill button {
   flex: 1;
   border: none;
-  background: none;
   padding: 12px;
   border-radius: 12px;
   font-weight: 700;
@@ -133,7 +128,7 @@ main {
   color: white;
 }
 
-/* STORY CARD */
+/* STORY CARDS */
 .story-card {
   border-radius: 20px;
   padding: 16px;
@@ -141,12 +136,10 @@ main {
   display: flex;
   align-items: center;
   transition: 0.3s;
-  cursor: pointer;
 }
 
 .story-card:hover {
   transform: translateX(10px);
-  background: rgba(255,255,255,0.9);
 }
 
 .story-icon {
@@ -160,9 +153,6 @@ main {
   margin-right: 15px;
 }
 
-.story-details b { font-size: 16px; }
-.story-details small { opacity: 0.6; font-size: 12px; }
-
 .spacer { flex-grow: 1; }
 
 .read-link {
@@ -172,12 +162,11 @@ main {
   border-radius: 12px;
   text-decoration: none;
   font-weight: 800;
-  font-size: 12px;
 }
 
-/* NEW RELEASE */
+/* RELEASE */
 .release-box {
-  background: linear-gradient(135deg, #4285f4, #34a853);
+  background: linear-gradient(135deg,#4285f4,#34a853);
   color: white;
   padding: 25px;
   border-radius: 20px;
