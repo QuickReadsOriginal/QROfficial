@@ -242,6 +242,16 @@ nav.bottom-nav {
   color: var(--primary);
   transform: translateY(-5px);
 }
+
+    .release-box {
+  background: linear-gradient(135deg, #4285f4, #34a853);
+  color: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 15px;
+}
   </style>
 </head>
 
@@ -325,18 +335,25 @@ nav.bottom-nav {
     </div>
   </section>
 
- <section id="new" class="tab-section">
-    <div class="glass welcome-card">
-      <h3 style="margin-top:0">🔥 New Releases</h3>
-      <div class="release-box">
-        2.3: The Phase Finale<br>20 / 04 / 2026
-      </div>
+<section id="new" class="tab-section">
+  
+  <div class="glass welcome-card">
+    <h3 style="margin-top:0">🔥 New Releases</h3>
+
+    <div class="release-box">
+      <b>2.3: The Phase Finale</b><br>
+      20 / 04 / 2026
     </div>
-    <div class="glass welcome-card" style="text-align:center">
-      <h3>⏳ Countdown</h3>
-      <div id="timer" style="font-size:28px; font-weight:900; color:#ea4335">00:00:00</div>
+  </div>
+
+  <div class="glass welcome-card" style="text-align:center">
+    <h3>⏳ Countdown</h3>
+    <div id="timer" style="font-size:28px; font-weight:900; color:#ea4335">
+      Loading...
     </div>
-  </section>
+  </div>
+
+</section>
 
   <section id="follow" class="tab-section">
     <div class="glass welcome-card" style="text-align:center">
@@ -389,6 +406,30 @@ setInterval(() => {
   const s = Math.floor((diff % (1000 * 60)) / 1000);
   document.getElementById('timer').innerText = `${d}d ${h}h ${m}m ${s}s`;
 }, 1000);
+
+  <script>
+const targetDate = new Date("2026-04-20T12:00:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  const timer = document.getElementById("timer");
+  if (!timer) return;
+
+  if (diff < 0) {
+    timer.innerText = "🚀 Out Now!";
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+  timer.innerText = `${d}d ${h}h ${m}m ${s}s`;
+}, 1000);
+</script>
 </script>
 
 </body>
