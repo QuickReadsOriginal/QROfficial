@@ -54,6 +54,7 @@ body {
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
@@ -112,6 +113,7 @@ main {
   background: rgba(0,0,0,0.05);
   padding: 5px;
   border-radius: 16px;
+  margin-bottom: 20px;
 }
 
 .phase-pill button {
@@ -121,11 +123,18 @@ main {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
+  background: transparent;
+  color: inherit;
+  transition: 0.3s;
 }
 
 .phase-pill button.active {
   background: var(--primary);
   color: white;
+}
+
+body.dark .phase-pill {
+  background: rgba(255,255,255,0.05);
 }
 
 /* STORY CARDS */
@@ -151,6 +160,17 @@ main {
   color: white;
   font-weight: 800;
   margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.story-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.story-details small {
+  opacity: 0.7;
+  margin-top: 4px;
 }
 
 .spacer { flex-grow: 1; }
@@ -162,11 +182,12 @@ main {
   border-radius: 12px;
   text-decoration: none;
   font-weight: 800;
+  flex-shrink: 0;
 }
 
 /* RELEASE */
 .release-box {
-  background: linear-gradient(135deg,#4285f4,#34a853);
+  background: linear-gradient(135deg, #4285f4, #34a853);
   color: white;
   padding: 25px;
   border-radius: 20px;
@@ -188,6 +209,7 @@ nav.bottom-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 0 10px;
 }
 
 .nav-btn {
@@ -197,6 +219,16 @@ nav.bottom-nav {
   font-weight: 700;
   opacity: 0.6;
   cursor: pointer;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: 0.3s;
+}
+
+.nav-btn span {
+  font-size: 20px;
 }
 
 .nav-btn.active {
@@ -209,7 +241,6 @@ nav.bottom-nav {
 <body>
 
 <header>
-  <header>
   <img src="weblogo.png" alt="Quick Reads Logo" class="logo">
   <div class="glass theme-btn" onclick="toggleDark()" id="themeIcon">🌙</div>
 </header>
@@ -278,12 +309,6 @@ nav.bottom-nav {
         <div class="spacer"></div>
         <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/2.2.TheCurse:Chapter0.html">READ</a>
       </div>
-      <!-- <div class="glass story-card">
-        <div class="story-icon" style="background:#ea4335">C</div>
-        <div class="story-details"><b>The Curse: Origins</b><small>Thriller • Mystery</small></div>
-        <div class="spacer"></div>
-        <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/2.3.TheCurse:Origins.html">READ</a>
-      </div>-->
     </div>
   </section>
 
@@ -335,6 +360,8 @@ function toggleDark() {
   document.getElementById('themeIcon').innerText = isDark ? '☀️' : '🌙';
   localStorage.setItem('qr-dark', isDark);
 }
+
+// Check local storage for theme on load
 if(localStorage.getItem('qr-dark') === 'true') {
   document.body.classList.add('dark');
   document.getElementById('themeIcon').innerText = '☀️';
@@ -344,7 +371,10 @@ const targetDate = new Date("2026-04-20T12:00:00").getTime();
 setInterval(() => {
   const now = new Date().getTime();
   const diff = targetDate - now;
-  if(diff < 0) { document.getElementById('timer').innerText = "🚀 Out Now!"; return; }
+  if(diff < 0) { 
+    document.getElementById('timer').innerText = "🚀 Out Now!"; 
+    return; 
+  }
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
