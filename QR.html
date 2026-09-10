@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -185,6 +186,19 @@ body.dark .phase-pill {
   flex-shrink: 0;
 }
 
+.coming-soon-btn {
+  background: #6b7280;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+  cursor: not-allowed;
+  user-select: none;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
 /* RELEASE */
 .release-box {
   background: linear-gradient(135deg, #4285f4, #34a853);
@@ -255,8 +269,10 @@ nav.bottom-nav {
     <div class="phase-pill">
       <button class="active" onclick="showPhase('phase1', this)">Phase 1</button>
       <button onclick="showPhase('phase2', this)">Phase 2</button>
+      <button onclick="showPhase('phase3', this)">Phase 3</button>
     </div>
 
+    <!-- Phase 1 Stories -->
     <div id="p1-container" class="stagger-in">
       <div class="glass story-card">
         <div class="story-icon" style="background:#2563EB">C</div>
@@ -290,6 +306,7 @@ nav.bottom-nav {
       </div>
     </div>
 
+    <!-- Phase 2 Stories -->
     <div id="p2-container" class="stagger-in" style="display:none">
       <div class="glass story-card">
         <div class="story-icon" style="background:#2563EB">C</div>
@@ -303,7 +320,7 @@ nav.bottom-nav {
         <div class="spacer"></div>
         <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/2.1.TheCurse.html">READ</a>
       </div>
-         <div class="glass story-card">
+      <div class="glass story-card">
         <div class="story-icon" style="background:#FACC15">C</div>
         <div class="story-details"><b>The Curse: Chapter 0</b><small>Thriller • Mystery</small></div>
         <div class="spacer"></div>
@@ -314,6 +331,16 @@ nav.bottom-nav {
         <div class="story-details"><b>The Curse: Origins</b><small>Thriller • Mystery</small></div>
         <div class="spacer"></div>
         <a class="read-link" href="https://quickreadsoriginal.github.io/QRSTORIES/2.3.TheCurse:Origins.html">READ</a>
+      </div>
+    </div>
+
+    <!-- Phase 3 Stories -->
+    <div id="p3-container" class="stagger-in" style="display:none">
+      <div class="glass story-card">
+        <div class="story-icon" style="background:#A855F7">M</div>
+        <div class="story-details"><b>Mother Bunch's Adventure</b><small>Adventure • Fantasy</small></div>
+        <div class="spacer"></div>
+        <span class="coming-soon-btn">COMING SOON</span>
       </div>
     </div>
   </section>
@@ -357,6 +384,7 @@ function tab(id, btn) {
 function showPhase(phase, btn) {
   document.getElementById('p1-container').style.display = (phase === 'phase1') ? 'block' : 'none';
   document.getElementById('p2-container').style.display = (phase === 'phase2') ? 'block' : 'none';
+  document.getElementById('p3-container').style.display = (phase === 'phase3') ? 'block' : 'none';
   btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
@@ -391,3 +419,4 @@ setInterval(() => {
 
 </body>
 </html>
+```
